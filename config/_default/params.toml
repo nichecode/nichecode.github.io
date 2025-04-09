@@ -1,0 +1,45 @@
+# Theme parameters
+colorScheme = "ocean"
+defaultAppearance = "light"
+autoSwitchAppearance = true
+
+# Enable site search
+enableSearch = true
+enableCodeCopy = true
+
+# SEO
+robots = "index, follow"
+
+# Site header configuration
+[header]
+  layout = "hybrid"
+  showTitle = true
+
+# Site footer configuration
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+# Article configuration
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showEdit = false
+  showHeadingAnchors = true
+  showPagination = true
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = true
+  sharingLinks = ["twitter", "linkedin", "reddit", "email"]
+
+# Home page configuration
+[homepage]
+  layout = "profile"
+  showRecent = true
+  recentLimit = 5

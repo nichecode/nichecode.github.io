@@ -1,0 +1,16 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Nicholas Hammond"
+
+[params]
+  description = "Nicholas Hammond's personal blog about software engineering and technology"
+  
+[params.author]
+  name = "Nicholas Hammond"
+  headline = "Software Engineer"
+  bio = "Thoughts on software engineering, technology, and best practices"
+  
+  links = [
+    { github = "https://github.com/nichecode" }
+  ]
