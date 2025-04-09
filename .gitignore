@@ -1,18 +1,35 @@
-# This .gitignore is appropriate for repositories deployed to GitHub Pages and using
-# a Gemfile as specified at https://github.com/github/pages-gem#conventional
+# Hugo default output directory
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
 
-# Basic Jekyll gitignores (synchronize to Jekyll.gitignore)
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# Hugo cache directory
+/.hugo_build.lock
 
-# Additional Ruby/bundler ignore for when you run: bundle install
-/vendor
+# Temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
 
-# Specific ignore for GitHub Pages
-# GitHub Pages will always use its own deployed version of pages-gem 
-# This means GitHub Pages will NOT use your Gemfile.lock and therefore it is
-# counterproductive to check this file into the repository.
-# Details at https://github.com/github/pages-gem/issues/768
-Gemfile.lock
+# Node modules if you're using npm for any frontend tooling
+/node_modules/
+
+# Local Netlify folder
+.netlify
+
+# Environment variables
+.env
+.env.*
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
