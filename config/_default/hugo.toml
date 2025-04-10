@@ -1,8 +1,6 @@
 baseURL = "https://nichecode.github.io/"
 defaultContentLanguage = "en"
 languageCode = "en"
-title = "Nicholas Hammond"
-theme = "congo"
 
 enableRobotsTXT = true
 

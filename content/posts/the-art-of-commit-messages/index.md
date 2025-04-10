@@ -1,10 +1,17 @@
 ---
 title: "The Art of Meaningful Commit Messages"
 date: 2025-04-09
+lastmod: 2025-04-09
 description: "Why well-crafted commit messages matter and how to write them"
 tags: ["git", "development", "best practices"]
 categories: ["Software Development"]
+draft: false
+code: true
 ---
+
+{{< alert >}}
+This article explores the importance of meaningful commit messages and provides practical guidelines for writing them effectively.
+{{< /alert >}}
 
 ## Why Commit Messages Matter
 
@@ -17,7 +24,11 @@ Good commit messages aren't just a nicety—they're a crucial form of documentat
 3. **Debugging aid**: When tracking down issues, meaningful commit messages can significantly speed up the process.
 4. **Project history**: They create a readable narrative of your project's evolution.
 
-![Vague vs Clear Commit Messages](/images/the-art-of-commit-messages/vague-vs-clear-messages.svg)
+{{< figure
+    src="images/vague-vs-clear-messages.svg"
+    alt="Comparison of vague vs clear commit messages"
+    caption="Examples of vague and clear commit messages"
+>}}
 
 ## Conventional Commits: A Structured Approach
 

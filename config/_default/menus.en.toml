@@ -4,14 +4,19 @@
   weight = 10
 
 [[main]]
-  name = "Categories"
-  pageRef = "categories"
+  name = "Tags"
+  pageRef = "tags"
   weight = 20
 
 [[main]]
-  name = "Tags"
-  pageRef = "tags"
+  name = "Categories"
+  pageRef = "categories"
   weight = 30
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 40
 
 [[main]]
   identifier = "search"
@@ -19,3 +24,10 @@
   [main.params]
     action = "search"
     icon = "search"
+
+[[footer]]
+  name = "GitHub"
+  url = "https://github.com/nichecode"
+  [footer.params]
+    icon = "github"
+    target = "_blank"
