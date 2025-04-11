@@ -32,13 +32,13 @@ Testing difficulties are often symptoms of underlying architectural issues. When
 This series explores a pragmatic architectural approach for Go applications that makes testing straightforward through the use of "fake" implementations.
 
 {{< figure
-    src="part-1/images/clean-architecture-layers.svg"
+    src="/posts/architecting-for-testability-in-go/part-1/images/clean-architecture-layers.svg"
     alt="Clean Architecture Layers visualization showing Domain, Application, and Infrastructure layers"
     caption="Clean Architecture with Functional Core, Imperative Shell approach"
 >}}
 
 {{< figure
-    src="part-3/images/testing-approaches-comparison.svg"
+    src="/posts/architecting-for-testability-in-go/part-3/images/testing-approaches-comparison.svg"
     alt="Comparison of different testing approaches"
     caption="Comparison of testing approaches: Mocks vs. Stubs vs. Fakes vs. Integration Tests"
 >}}
@@ -60,7 +60,7 @@ This architectural approach offers numerous advantages:
 5. **Better separation of concerns** - Organize code logically by responsibility
 
 {{< figure
-    src="part-2/images/test-pyramid.svg"
+    src="/posts/architecting-for-testability-in-go/part-2/images/test-pyramid.svg"
     alt="Test Pyramid showing the proportion of different test types"
     caption="Balanced testing strategy enabled by this architecture"
 >}}
