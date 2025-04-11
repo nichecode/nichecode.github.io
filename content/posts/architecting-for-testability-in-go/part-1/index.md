@@ -1,12 +1,11 @@
 ---
 title: "Architecting for Testability in Go (Part 1): Foundations and Principles"
-date: 2025-04-10
-lastmod: 2025-04-10
+date: 2025-04-10T01:00:00
+lastmod: 2025-04-10T01:00:00
 description: "Understanding the architectural foundations that enable better testing in Go applications"
 tags: ["go", "testing", "architecture", "clean-code"]
 categories: ["Software Development"]
 draft: false
-code: true
 series: ["Go Testing Architecture"]
 series_order: 1
 ---
@@ -28,26 +27,26 @@ When tests are painful to write or maintain, it's usually a symptom of underlyin
 The approach described in this series builds upon established architectural patterns, but creates a pragmatic hybrid that addresses specific testing challenges:
 
 - **Functional Core, Imperative Shell (FCIS)**: This pattern, popularized by Gary Bernhardt, emphasizes pure functions for business logic and relegates side effects to the outer "shell." 
-  - **How we apply it**: We strictly enforce a pure functional domain with immutable types and no side effects. However, in pure FCIS, the imperative shell can be difficult to test since it contains all side effects. Our approach makes the shell testable by dividing it into an application layer (with abstractions for external dependencies) and infrastructure layer (with implementations), enabling easier testing through fakes.
-
-  {{< figure
+{{< figure
     src="images/functional-core-imperative-shell.svg"
     alt="Functional Core Imperative Shell"
-    caption="Functional Core, Imperative Shell pattern"
+    caption=""
 >}}
+    - **How we apply it**: We strictly enforce a pure functional domain with immutable types and no side effects. However, in pure FCIS, the imperative shell can be difficult to test since it contains all side effects. Our approach makes the shell testable by dividing it into an application layer (with abstractions for external dependencies) and infrastructure layer (with implementations), enabling easier testing through fakes.
 
+  
 - **Hexagonal/Onion Architecture**: Both patterns focus on dependency inversion where domain logic is independent of external concerns, with dependencies pointing inward through abstractions.
-  - **How we apply it**: From experience, implementations of these patterns often become over-engineered with excessive abstraction layers. Our approach applies the core principles (separation of concerns, dependency inversion) while deliberately minimizing the number of layers and abstractions to what's essential for testability.
-
-   {{< figure
+{{< figure
     src="images/hexagonal-architecture.svg"
     alt="Hexagonal/Onion Architecture"
-    caption="Hexagonal/Onion Architecture pattern"
+    caption=""
 >}}
+     - **How we apply it**: From experience, implementations of these patterns often become over-engineered with excessive abstraction layers. Our approach applies the core principles (separation of concerns, dependency inversion) while deliberately minimizing the number of layers and abstractions to what's essential for testability.
+
 
 
 - **Domain-Driven Design (DDD)**: While not requiring full DDD adoption, our approach embraces the separation of domain logic and the use of a ubiquitous language within bounded contexts.
-  - **How we apply it**: We focus on the tactical patterns that improve testability, particularly immutable value objects and entities in our domain layer.
+  - **How we apply it**: We focus on the tactical patterns that improve testability, particularly pure functions and immutable value objects and entities in our domain layer.
 
 The architecture described here isn't claiming to be novel—rather, it's a practical synthesis of these proven patterns, creating a testing-friendly approach that maintains the benefits of each while avoiding common pitfalls like over-abstraction and excessive complexity.
 
@@ -149,6 +148,12 @@ internal/
 
 With this structure:
 
+{{< figure
+    src="images/clean-architecture-layers.svg"
+    alt="Clean Architecture Layers visualization"
+    caption=""
+>}}
+
 1. **Domain Layer (Functional Core)**: 
    - Contains pure business logic with no dependencies
    - Uses immutable data types and value objects
@@ -172,11 +177,7 @@ With this structure:
    - Translates between external formats (HTTP, message queues) and application contracts
    - **Never directly exposes domain models** to the outside world
 
-{{< figure
-    src="images/clean-architecture-layers.svg"
-    alt="Clean Architecture Layers visualization"
-    caption="Three-layer architecture with Domain (pure functions), Application (orchestration), and Infrastructure (side effects) - following the Functional Core, Imperative Shell pattern"
->}}
+
 
 ## Why Architect This Way?
 

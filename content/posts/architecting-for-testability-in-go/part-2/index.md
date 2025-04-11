@@ -1,19 +1,37 @@
 ---
 title: "Architecting for Testability in Go (Part 2): Implementation Strategy and Code Examples"
-date: 2025-04-10
-lastmod: 2025-04-10
+date: 2025-04-10T02:00:00
+lastmod: 2025-04-10T02:00:00
 description: "Practical implementation details and code examples for testable Go applications"
 tags: ["go", "testing", "architecture", "clean-code"]
 categories: ["Software Development"]
 draft: false
-code: true
 series: ["Go Testing Architecture"]
 series_order: 2
 ---
 
+
+
 {{< alert >}}
 This is Part 2 of a 3-part series on architecting Go applications for testability. This part provides concrete implementation details and code examples.
 {{< /alert >}}
+
+## TL;DR
+This part provides practical implementation details and code examples for our testable architecture approach. We'll cover interface definition, real implementations, fake implementations, and testing patterns, with complete code examples you can adapt for your projects.
+
+## From Theory to Practice
+
+In [Part 1](/posts/architecting-for-testability-in-go/part-1/), we established the theoretical foundations of our approach. Now it's time to see how these principles translate into actual Go code.
+
+Our implementation strategy follows these key steps:
+
+1. Define clear interfaces in the application layer
+2. Create real implementations in the infrastructure layer
+3. Create comprehensive fake implementations for testing
+4. Write tests using these fakes
+5. Use a factory pattern to select the appropriate implementation
+
+Let's walk through each step with concrete code examples.
 
 ## Implementation Strategy for Fake-Based Testing
 
@@ -423,6 +441,10 @@ The placement of fake implementations depends on their purpose:
 
 This ensures that test-only code doesn't bloat your production binary.
 
+{{< alert >}}
+**Testing Philosophy**: When using fakes, our tests verify state and behavior outcomes rather than implementation details. This is fundamentally different from mock-based testing, which often focuses on verifying specific method calls were made in a specific order.
+{{< /alert >}}
+
 ### 5. Writing Tests with Fakes
 
 Now that we have our fakes, let's see how to write tests with them:
@@ -585,7 +607,7 @@ With this architecture, we can employ a balanced testing strategy:
 {{< figure
     src="images/test-pyramid.svg"
     alt="Test Pyramid showing the proportion of different test types"
-    caption="Balanced testing strategy enabled by this architecture"
+    caption=""
 >}}
 
 1. **Unit Tests (~85-90%)**
@@ -635,11 +657,11 @@ test/
 ```
 
 Recommended placement:
-- Domain tests: In the domain package
-- Service tests: In application_test package
-- Handler tests: In infrastructure/http_test package
-- Fake implementations: In *_test.go files or regular .go files if used for features
-- Integration tests: In a separate test/ directory or with build tags
+- **Domain tests:** In the domain package
+- **Service tests:** In application_test package
+-**Handler tests:** In infrastructure/http_test package
+- **Fake implementations:** In *_test.go files or regular .go files if used for features
+- **Integration tests:** In a separate test/ directory or with build tags
 
 ## Coming Up in Part 3
 

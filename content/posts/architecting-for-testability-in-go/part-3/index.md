@@ -1,12 +1,11 @@
 ---
 title: "Architecting for Testability in Go (Part 3): Real-World Applications and Advanced Patterns"
-date: 2025-04-10
-lastmod: 2025-04-10
+date: 2025-04-10T03:00:00
+lastmod: 2025-04-10T03:00:00
 description: "Real-world applications, metrics, and advanced patterns for testable Go architectures"
 tags: ["go", "testing", "architecture", "clean-code"]
 categories: ["Software Development"]
 draft: false
-code: true
 series: ["Go Testing Architecture"]
 series_order: 3
 ---
@@ -30,6 +29,155 @@ What makes our approach different is that we've made the imperative shell itself
    - **Infrastructure Layer**: Implements those interfaces and manages actual I/O
 
 2. Using dependency inversion to allow fake implementations to be injected for testing
+
+
+{{< mermaid >}}
+flowchart TD
+    %% Traditional FCIS Pattern
+    subgraph subGraph0["Traditional FCIS"]
+        subgraph Shell["Imperative Shell"]
+            IS["Orchestration Logic"]
+        end
+        
+        subgraph Core["Functional Core"]
+            FC["Domain Logic"]
+        end
+        
+        subgraph External1["External Dependencies"]
+            DB1[("Database")]
+            API1{{"API"}}
+            FS1["File System"]
+        end
+        
+        IS --> FC
+        IS --> DB1
+        IS --> API1
+        IS --> FS1
+        
+        IT["Integration Tests"] -.-> Shell
+        UT1["Unit Tests"] -.-> Core
+    end
+    
+    %% Our Testable Approach
+    subgraph subGraph1["Our Testable Imperative Shell"]
+        %% Domain Package (independent, core logic)
+        subgraph DomainPkg["domain/"]
+            subgraph Dom["Domain Layer"]
+                DL["Pure Domain Logic"]
+                DM["Domain Models"]
+            end
+        end
+        
+        %% Application Package (defines interfaces, orchestrates)
+        subgraph AppPkg["application/"]
+            subgraph App["Application Layer"]
+                AL["Application Services"]
+                
+                subgraph Interfaces["Interfaces"]
+                    RI["Repository Interface"]
+                    LI["Logger Interface"]
+                end
+                
+                subgraph Contracts["API Contracts"]
+                    AC["Request/Response Models"]
+                end
+            end
+        end
+        
+        %% Infrastructure Package (implementations)
+        subgraph InfraPkg["infrastructure/"]
+            subgraph Infra["Infrastructure Layer"]
+                subgraph RealImpl["Real Implementations"]
+                    CR["Concrete Repository"]
+                    CL["Concrete Logger"]
+                end
+                
+                subgraph FakeImpl["Fake Implementations"]
+                    FR["Fake Repository"]
+                    FL["Fake Logger"]
+                end
+                
+                subgraph Handlers["Entry Points"]
+                    HT["HTTP Handlers"]
+                    MC["Message Consumers"]
+                end
+            end
+            
+            subgraph External2["External Dependencies"]
+                DB2[("Database")]
+                API2{{"API"}}
+                FS2["File System"]
+            end
+        end
+        
+        %% Relationships between layers
+        AL --> RI
+        AL --> LI
+        AL --> DL
+        AL --> DM
+        
+        %% Infrastructure implements interfaces
+        CR --> RI
+        CL --> LI
+        FR --> RI
+        FL --> LI
+        
+        %% Infrastructure connects to external
+        CR --> DB2
+        CR --> API2
+        CL --> FS2
+        
+        %% Handlers use application services
+        HT --> AL
+        MC --> AL
+        
+        %% Testing arrows
+        UT2["Unit Tests with Fakes"] -.-> App
+        UT3["Unit Tests"] -.-> Dom
+        IT2["Integration Tests"] -.-> RealImpl
+    end
+    
+    %% Styling
+    classDef shellClass fill:#e0e0e0,stroke:#333,stroke-dasharray:5 5,color:black
+    classDef coreClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black
+    classDef extClass fill:#fff,stroke:#333,color:black
+    classDef testClass fill:#f8f8f8,stroke:#333,color:black,stroke-dasharray:3 3
+    classDef infraClass fill:#e0e0e0,stroke:#333,color:black
+    classDef appClass fill:#a1c6ff,stroke:#333,color:black
+    classDef domainClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black
+    classDef interfaceClass fill:#fff0a0,stroke:#333,color:black
+    classDef fakeClass fill:#ffccd5,stroke:#333,color:black,stroke-dasharray:5 5
+    classDef noteClass fill:#f8f8f8,stroke:#333,color:black
+    classDef mainGraphClass fill:#2d333b,stroke:#d4d4d4,stroke-width:2px,color:white
+    classDef packageClass fill:#3f464e,stroke:#ffffff54,stroke-width:1px,color:white
+    
+    %% Apply styles
+    class IS shellClass
+    class FC coreClass
+    class DB1,API1,FS1,DB2,API2,FS2 extClass
+    class IT,UT1,UT2,UT3,IT2 testClass
+    class CR,CL,HT,MC infraClass
+    class AL,AC appClass
+    class DL,DM domainClass
+    class RI,LI interfaceClass
+    class FR,FL fakeClass
+    class subGraph0,subGraph1 mainGraphClass
+    class DomainPkg,AppPkg,InfraPkg packageClass
+    
+    %% Make inner containers styled
+    style Shell fill:#e0e0e054,stroke:#d4d4d4,stroke-dasharray:5 5
+    style Core fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px
+    style Dom fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px
+    style App fill:#a1c6ff54,stroke:#d4d4d4
+    style Infra fill:#e0e0e054,stroke:#d4d4d4
+    style RealImpl fill:#e0e0e054,stroke:#d4d4d4
+    style FakeImpl fill:#ffccd554,stroke:#d4d4d4,stroke-dasharray:5 5
+    style Handlers fill:#e0e0e054,stroke:#d4d4d4
+    style External1 fill:#ffffff54,stroke:#d4d4d4
+    style External2 fill:#ffffff54,stroke:#d4d4d4
+    style Interfaces fill:#fff0a054,stroke:#d4d4d4
+    style Contracts fill:#a1c6ff54,stroke:#d4d4d4
+{{< /mermaid >}}
 
 This approach gives us the best of both worlds: pure domain logic that's trivially testable without mocks, and orchestration logic that can be tested without real external dependencies. This is a significant advantage over the pure FCIS pattern, while maintaining a simpler structure than traditional Hexagonal or Onion architectures.
 
@@ -262,7 +410,7 @@ func TestServiceLogsCorrectStructuredData(t *testing.T) {
 
 This verifies both that logging occurred and that the specific contextual data was included.
 
-## Conclusion: The Path to More Maintainable Go Applications
+## Conclusion: The Path to Maintainable Go
 
 Throughout this series, we've explored an architectural approach that combines:
 
@@ -270,26 +418,13 @@ Throughout this series, we've explored an architectural approach that combines:
 2. **Clean Layered Architecture**: Clear separation of concerns with dependency inversion
 3. **Fake-Based Testing**: State-focused testing that enables refactoring
 
-This approach builds upon established patterns like Hexagonal Architecture (Ports and Adapters), Clean Architecture, and aspects of Domain-Driven Design, but creates a pragmatic synthesis rather than just implementing any single established pattern.
+This approach isn't about architectural purity—it's about practical benefits:
 
-What makes this approach worth considering:
-- Isolation of domain logic in pure functions (from FCIS)
-- A testable application layer with interface-based dependency inversion (from Hexagonal Architecture)
-- Clear ownership of external contracts by the application layer
-- The use of state-based fakes rather than interaction-based mocks
-- A practical approach to testing at different levels
-- A simplified layer structure that avoids overengineering
-
-### The Go Advantage
-
-One of Go's strengths is that it's simple by design. The language itself discourages over-engineering through:
-
-- Lack of inheritance and class hierarchies
-- Structural typing with interfaces
-- Minimal syntax and language features
-- Focus on readability and simplicity
-- Strong standard library
-
+- **Isolated domain logic** that's trivial to test
+- **Testable application layer** with clear interfaces
+- **Protection from external contracts** and infrastructure concerns
+- **Resilience to refactoring** through state-based testing
+- **Simplified structure** that avoids overengineering
 
 {{< figure
     src="images/golang-impact.svg"
@@ -297,15 +432,17 @@ One of Go's strengths is that it's simple by design. The language itself discour
     caption="Go's design principles make it ideal for implementing this architectural approach"
 >}}
 
-Go encourages straightforward, readable code. The architecture described in this series aims to provide just enough structure to support testability and maintainability while aligning with Go's philosophy of simplicity.
+Go's emphasis on simplicity and readability makes it the perfect language for this approach. By providing just enough structure to support testability without adding unnecessary complexity, we create a balance between development speed, maintainability, and reliability.
 
-By focusing on essential structural elements and making them idiomatic to Go, this approach attempts to achieve the benefits of more formal architectural patterns while maintaining the simplicity that makes Go attractive in the first place.
+Remember: **Testing problems are usually structural problems in disguise**. By addressing architecture first, testing becomes a natural extension of good design rather than a burden.
 
-This combination creates what many teams find to be the ideal balance between:
-- Development speed (fast tests, clear boundaries)
-- Maintainability (easy refactoring, isolated changes)
-- Reliability (thorough testing at all levels)
+Whether you're building a new service or refactoring an existing one, these patterns provide a path to more maintainable, testable, and ultimately successful Go applications.
 
-The key insight is that testing problems are usually structural problems in disguise. By addressing architecture first, testing becomes a natural extension of good design rather than a burden.
+## What's Next?
 
-As Go continues to mature as a language for business applications, these patterns help teams scale development while maintaining high quality and developer satisfaction. Whether you're building a new service or refactoring an existing one, these approaches provide a path to more maintainable, testable, and ultimately successful Go applications.
+Consider these resources to further your understanding:
+- [Go's Testing Package Documentation](https://golang.org/pkg/testing/)
+- [Mat Ryer's "How I Write HTTP Services after Eight Years"](https://pace.dev/blog/2018/05/09/how-I-write-http-services-after-eight-years.html)
+- [Dave Cheney's "Practical Go: Real World Advice for Writing Maintainable Go Programs"](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
+
+Share your experiences with this architectural approach—I'd love to hear how it works for your team!
