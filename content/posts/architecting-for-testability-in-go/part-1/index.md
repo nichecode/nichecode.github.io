@@ -138,7 +138,10 @@ internal/
 │   ├── contracts/    # DTOs defining application boundaries
 │   │   ├── api/      # e.g., ActivateUserRequest, UserResponse 
 │   │   └── messaging/ # e.g., UserActivatedEvent
-│   └── interfaces.go # Repository, Logger, etc. interfaces
+│   ├── interfaces.go # Repository, Logger, etc. interfaces needed by services
+│   └── service.go    # Services that orchestrate domain logic and infrastructure 
+│                     # dependencies through interfaces, handling workflow and
+│                     # translating between contracts and domain models
 └── infrastructure/ # Interactions with outside world (Imperative Shell)
     ├── bootstrap/    # Wires dependencies together
     ├── http/         # HTTP handlers (use application/contracts/api)
