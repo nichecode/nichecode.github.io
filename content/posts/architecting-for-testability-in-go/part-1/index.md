@@ -134,15 +134,14 @@ A clean, layered architecture separates your application into distinct areas of 
 ```
 internal/
 ├── domain/       # Pure business logic and types (Functional Core)
-├── application/  # Orchestration logic & interface definitions
+├── application/  # Orchestration & interface definitions (Imperative Shell)
 │   ├── contracts/    # DTOs defining application boundaries
 │   │   ├── api/      # e.g., ActivateUserRequest, UserResponse 
 │   │   └── messaging/ # e.g., UserActivatedEvent
-│   ├── interfaces.go # Repository, Logger, etc. interfaces needed by services
-│   └── service.go    # Services that orchestrate domain logic and infrastructure 
-│                     # dependencies through interfaces, handling workflow and
-│                     # translating between contracts and domain models
-└── infrastructure/ # Interactions with outside world (Imperative Shell)
+│   ├── interfaces.go # Interfaces defining infrastructure dependencies
+│   └── service.go    # Orchestrates domain logic using interfaces,
+│                     # translates between contracts and domain models
+└── infrastructure/ # Implementations & entry points (Imperative Shell)
     ├── bootstrap/    # Wires dependencies together
     ├── http/         # HTTP handlers (use application/contracts/api)
     ├── messaging/    # Message handlers (use application/contracts/messaging)
@@ -156,6 +155,50 @@ With this structure:
     alt="Clean Architecture Layers visualization"
     caption=""
 >}}
+
+{{< mermaid >}}
+graph TD
+    subgraph "Imperative Shell"
+        subgraph Infrastructure["Infrastructure Layer"]
+            style Infrastructure fill:#4f91fc,stroke:#2c2c2c,color:white
+            HTTP["HTTP Handlers"]
+            Messaging["Message Handlers"]
+            Storage["Storage Implementations"]
+            Bootstrap["Bootstrap/Wiring"]
+        end
+        
+        subgraph Application["Application Layer"]
+            style Application fill:#43dd93,stroke:#2c2c2c,color:white
+            Services["Services"]
+            Interfaces["Interfaces"]
+            Contracts["Contracts/DTOs"]
+        end
+    end
+    
+    subgraph "Functional Core"
+        subgraph Domain["Domain Layer"]
+            style Domain fill:#b7b7b7,stroke:#2c2c2c,color:white
+            DomainModels["Domain Models & Pure Logic"]
+        end
+    end
+    
+    %% Infrastructure depends on Application
+    HTTP ---> Services
+    HTTP ---> Contracts
+    Messaging ---> Services
+    Messaging ---> Contracts
+    Storage ---> Interfaces
+    Bootstrap ---> Services
+    Bootstrap ---> Interfaces
+    
+    %% Application depends on Domain
+    Services ---> DomainModels
+    Contracts -..-> DomainModels
+    
+    
+    %% Set link style
+    linkStyle default stroke:#ffffff,stroke-width:2px
+{{< /mermaid >}}
 
 1. **Domain Layer (Functional Core)**: 
    - Contains pure business logic with no dependencies
