@@ -26,7 +26,8 @@
 
 &lt;h2 id="introduction" class="relative group">Introduction &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#introduction" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>How easily can you understand a piece of code seconds after looking at it? How quickly can you write a meaningful test for it?&lt;/p></description></item><item><title>About</title><link>https://nichecode.github.io/about/</link><pubDate>Wed, 09 Apr 2025 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/about/</guid><description>&lt;h2 id="who-i-am" class="relative group">Who I Am &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#who-i-am" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>I&amp;rsquo;m a strategic engineering leader passionate about building high-performance technical platforms and empowering engineering teams. My journey spans multiple domains, driven by a commitment to innovation and technical excellence.&lt;/p>
 &lt;h2 id="professional-lens" class="relative group">Professional Lens &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#professional-lens" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>With over two decades of experience, I specialise in:&lt;/p>
-&lt;p>
+&lt;ul>
+&lt;li>
 
  &lt;span class="icon relative inline-block align-text-bottom">
  &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -34,8 +35,8 @@
 &lt;/svg> 
  &lt;/span>
 
- Cloud-native architectures across major cloud providers
-
+ Cloud-native architectures across major cloud providers&lt;/li>
+&lt;li>
 
  &lt;span class="icon relative inline-block align-text-bottom">
  &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -43,8 +44,8 @@
 &lt;/svg> 
  &lt;/span>
 
- Distributed systems and microservices design
-
+ Distributed systems and microservices design&lt;/li>
+&lt;li>
 
  &lt;span class="icon relative inline-block align-text-bottom">
  &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -52,8 +53,8 @@
 &lt;/svg> 
  &lt;/span>
 
- Engineering leadership and team transformation
-
+ Engineering leadership and team transformation&lt;/li>
+&lt;li>
 
  &lt;span class="icon relative inline-block align-text-bottom">
  &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -61,7 +62,17 @@
 &lt;/svg> 
  &lt;/span>
 
- Multi-cloud platform engineering&lt;/p></description></item><item><title>The Art of Meaningful Commit Messages</title><link>https://nichecode.github.io/posts/the-art-of-commit-messages/</link><pubDate>Wed, 09 Apr 2025 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/posts/the-art-of-commit-messages/</guid><description>&lt;div class="flex rounded-md bg-primary-100 px-4 py-3 dark:bg-primary-900">
+ Multi-cloud platform engineering&lt;/li>
+&lt;/ul>
+&lt;h2 id="technical-philosophy" class="relative group">Technical Philosophy &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#technical-philosophy" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;div class="flex rounded-md bg-primary-100 px-4 py-3 dark:bg-primary-900">
+ &lt;span class="pe-3 text-primary-400">
+ &lt;span class="icon relative inline-block px-1 align-text-bottom">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">&lt;path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/>&lt;/svg>
+&lt;/span>
+ &lt;/span>
+ &lt;span class="dark:text-neutral-300">I believe in building systems that are not just functional, but are also maintainable, scalable, and a joy to work with.&lt;/span>
+&lt;/div>
+
+&lt;h2 id="areas-of-expertise" class="relative group">Areas of Expertise &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#areas-of-expertise" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>My technical toolkit includes:&lt;/p></description></item><item><title>The Art of Meaningful Commit Messages</title><link>https://nichecode.github.io/posts/the-art-of-commit-messages/</link><pubDate>Wed, 09 Apr 2025 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/posts/the-art-of-commit-messages/</guid><description>&lt;div class="flex rounded-md bg-primary-100 px-4 py-3 dark:bg-primary-900">
  &lt;span class="pe-3 text-primary-400">
  &lt;span class="icon relative inline-block px-1 align-text-bottom">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">&lt;path fill="currentColor" d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z"/>&lt;/svg>
 &lt;/span>
@@ -69,4 +80,4 @@
  &lt;span class="dark:text-neutral-300">This article explores the importance of meaningful commit messages and provides practical guidelines for writing them effectively.&lt;/span>
 &lt;/div>
 
-&lt;h2 id="why-commit-messages-matter" class="relative group">Why Commit Messages Matter &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#why-commit-messages-matter" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>Have you ever looked back at your Git history and wondered, &amp;ldquo;What on earth was I thinking when I made this change?&amp;rdquo; If so, you&amp;rsquo;re not alone. As developers, we&amp;rsquo;ve all been guilty of commit messages like &amp;ldquo;fix stuff&amp;rdquo; or &amp;ldquo;update code&amp;rdquo; at some point. These vague messages might seem harmless in the moment, but they create significant pain down the road.&lt;/p></description></item><item><title>Archives</title><link>https://nichecode.github.io/archives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/archives/</guid><description>archives</description></item><item><title>Search</title><link>https://nichecode.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/search/</guid><description>search</description></item></channel></rss>
+&lt;h2 id="why-commit-messages-matter" class="relative group">Why Commit Messages Matter &lt;span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100">&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#why-commit-messages-matter" aria-label="Anchor">#&lt;/a>&lt;/span>&lt;/h2>&lt;p>Have you ever looked back at your Git history and wondered, &amp;ldquo;What on earth was I thinking when I made this change?&amp;rdquo; If so, you&amp;rsquo;re not alone. As developers, we&amp;rsquo;ve all been guilty of commit messages like &amp;ldquo;fix stuff&amp;rdquo; or &amp;ldquo;update code&amp;rdquo; at some point. These vague messages might seem harmless in the moment, but they create significant pain down the road.&lt;/p></description></item><item><title>Search</title><link>https://nichecode.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nichecode.github.io/search/</guid><description>search</description></item></channel></rss>
