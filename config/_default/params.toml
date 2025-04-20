@@ -36,10 +36,18 @@ robots = "index, follow"
   showTableOfContents = true
   showTaxonomies = true
   showWordCount = true
-  sharingLinks = ["twitter", "linkedin", "github", "email"]
+  sharingLinks = ["github"]
 
 # Home page configuration
 [homepage]
   layout = "profile"
   showRecent = true
   recentLimit = 5
+
+[list]
+  showBreadcrumbs = true
+  showSummary = true
+  showTableOfContents = false
+  showTaxonomies = true
+  groupByYear = true
+  paginationWidth = 1

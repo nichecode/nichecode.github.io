@@ -13,10 +13,10 @@ I'm a strategic engineering leader passionate about building high-performance te
 
 With over two decades of experience, I specialise in:
 
-{{< icon "globe" >}} Cloud-native architectures across major cloud providers
-{{< icon "mobile" >}} Distributed systems and microservices design
-{{< icon "users" >}} Engineering leadership and team transformation
-{{< icon "code" >}} Multi-cloud platform engineering
+- {{< icon "globe" >}} Cloud-native architectures across major cloud providers
+- {{< icon "mobile" >}} Distributed systems and microservices design
+- {{< icon "users" >}} Engineering leadership and team transformation
+- {{< icon "code" >}} Multi-cloud platform engineering
 
 ## Technical Philosophy
 
@@ -47,14 +47,8 @@ When I'm not architecting systems or leading teams, I'm exploring:
 - Cloud-native innovations
 - The intersection of technology and strategic leadership
 
-## Let's Connect
-
-This blog is my space to share insights, challenges, and learnings from my journey in technology leadership. Whether you're a fellow engineer, a technology enthusiast, or simply curious about modern software engineering, I hope you'll find something valuable here.
-
-Feel free to reach out and connect.
-
 ## Connect With Me
 
 {{< icon "github" >}} [GitHub](https://github.com/nichecode)
-{{< icon "linkedin" >}} [LinkedIn](https://linkedin.com/in/your-profile)
-{{< icon "twitter" >}} [Twitter](https://twitter.com/your-handle)
+
+For professional connections, you can find me on LinkedIn or X (formerly Twitter). Feel free to reach out through any of these platforms.
