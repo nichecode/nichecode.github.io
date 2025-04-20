@@ -464,5 +464,3 @@ Consider these resources to further your understanding:
 - [Go's Testing Package Documentation](https://golang.org/pkg/testing/)
 - [Mat Ryer's "How I Write HTTP Services after Eight Years"](https://pace.dev/blog/2018/05/09/how-I-write-http-services-after-eight-years.html)
 - [Dave Cheney's "Practical Go: Real World Advice for Writing Maintainable Go Programs"](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
-
-Share your experiences with this architectural approach—I'd love to hear how it works for your team!
