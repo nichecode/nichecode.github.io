@@ -18,20 +18,10 @@ This is Part 3 of a 3-part series on architecting Go applications for testabilit
 
 In [Part 1](/posts/architecting-for-testability-in-go/part-1/), we introduced the concept of structuring applications with a pure functional core surrounded by an imperative shell. Let's dig deeper into why this pattern is so powerful for testability:
 
-### Our Hybrid Approach: A Testable Imperative Shell
-
-A key innovation in our approach is how we handle the "imperative shell" portion of the Functional Core, Imperative Shell pattern. In the classic FCIS pattern, the shell contains all side effects and is typically tested primarily through integration tests.
-
-What makes our approach different is that we've made the imperative shell itself highly testable by:
-
-1. Splitting it into two parts:
-   - **Application Layer**: Handles orchestration but uses interfaces to abstract external dependencies
-   - **Infrastructure Layer**: Implements those interfaces and manages actual I/O
-
-2. Using dependency inversion to allow fake implementations to be injected for testing
-
+### Traditional FCIS Pattern
 
 {{< mermaid >}}
+%%{init: { 'flowchart': { 'scale': 1.2 }}}%%
 flowchart TD
     %% Traditional FCIS Pattern
     subgraph subGraph0["Traditional FCIS"]
@@ -58,10 +48,38 @@ flowchart TD
         UT1["Unit Tests"] -.-> Core
     end
     
+    %% Styling
+    classDef shellClass fill:#e0e0e0,stroke:#333,stroke-dasharray:5 5,color:black
+    classDef coreClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black
+    classDef extClass fill:#fff,stroke:#333,color:black
+    classDef testClass fill:#f8f8f8,stroke:#333,color:black,stroke-dasharray:3 3
+    classDef mainGraphClass fill:#2d333b,stroke:#d4d4d4,stroke-width:2px,color:white
+    
+    %% Apply styles
+    class IS shellClass
+    class FC coreClass
+    class DB1,API1,FS1 extClass
+    class IT,UT1 testClass
+    class subGraph0 mainGraphClass
+    
+    %% Make inner containers styled
+    style Shell fill:#e0e0e054,stroke:#d4d4d4,stroke-dasharray:5 5
+    style Core fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px
+    style External1 fill:#ffffff54,stroke:#d4d4d4
+{{< /mermaid >}}
+
+### Our Enhanced Approach
+
+{{< mermaid >}}
+%%{init: { 'flowchart': { 'scale': 0.8 }, 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'arial' }}}%%
+flowchart LR
     %% Our Testable Approach
     subgraph subGraph1["Our Testable Imperative Shell"]
+        direction LR
+        
         %% Domain Package (independent, core logic)
         subgraph DomainPkg["domain/"]
+            direction TB
             subgraph Dom["Domain Layer"]
                 DL["Pure Domain Logic"]
                 DM["Domain Models"]
@@ -70,10 +88,12 @@ flowchart TD
         
         %% Application Package (defines interfaces, orchestrates)
         subgraph AppPkg["application/"]
+            direction TB
             subgraph App["Application Layer"]
                 AL["Application Services"]
                 
                 subgraph Interfaces["Interfaces"]
+                    direction LR
                     RI["Repository Interface"]
                     LI["Logger Interface"]
                 end
@@ -86,24 +106,31 @@ flowchart TD
         
         %% Infrastructure Package (implementations)
         subgraph InfraPkg["infrastructure/"]
+            direction TB
             subgraph Infra["Infrastructure Layer"]
+                direction TB
+                
                 subgraph RealImpl["Real Implementations"]
+                    direction LR
                     CR["Concrete Repository"]
                     CL["Concrete Logger"]
                 end
                 
                 subgraph FakeImpl["Fake Implementations"]
+                    direction LR
                     FR["Fake Repository"]
                     FL["Fake Logger"]
                 end
                 
                 subgraph Handlers["Entry Points"]
+                    direction LR
                     HT["HTTP Handlers"]
                     MC["Message Consumers"]
                 end
             end
             
             subgraph External2["External Dependencies"]
+                direction LR
                 DB2[("Database")]
                 API2{{"API"}}
                 FS2["File System"]
@@ -137,46 +164,39 @@ flowchart TD
         IT2["Integration Tests"] -.-> RealImpl
     end
     
-    %% Styling
-    classDef shellClass fill:#e0e0e0,stroke:#333,stroke-dasharray:5 5,color:black
-    classDef coreClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black
-    classDef extClass fill:#fff,stroke:#333,color:black
-    classDef testClass fill:#f8f8f8,stroke:#333,color:black,stroke-dasharray:3 3
-    classDef infraClass fill:#e0e0e0,stroke:#333,color:black
-    classDef appClass fill:#a1c6ff,stroke:#333,color:black
-    classDef domainClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black
-    classDef interfaceClass fill:#fff0a0,stroke:#333,color:black
-    classDef fakeClass fill:#ffccd5,stroke:#333,color:black,stroke-dasharray:5 5
-    classDef noteClass fill:#f8f8f8,stroke:#333,color:black
+    %% Styling with increased sizes
+    classDef infraClass fill:#e0e0e0,stroke:#333,color:black,font-size:14px
+    classDef appClass fill:#a1c6ff,stroke:#333,color:black,font-size:14px
+    classDef domainClass fill:#b8f2d7,stroke:#333,stroke-width:2px,color:black,font-size:14px
+    classDef interfaceClass fill:#fff0a0,stroke:#333,color:black,font-size:14px
+    classDef fakeClass fill:#ffccd5,stroke:#333,color:black,stroke-dasharray:5 5,font-size:14px
+    classDef noteClass fill:#f8f8f8,stroke:#333,color:black,font-size:14px
     classDef mainGraphClass fill:#2d333b,stroke:#d4d4d4,stroke-width:2px,color:white
-    classDef packageClass fill:#3f464e,stroke:#ffffff54,stroke-width:1px,color:white
+    classDef packageClass fill:#3f464e,stroke:#ffffff54,stroke-width:1px,color:white,font-size:16px
+    classDef extClass fill:#fff,stroke:#333,color:black,font-size:14px
+    classDef testClass fill:#f8f8f8,stroke:#333,color:black,stroke-dasharray:3 3,font-size:14px
     
     %% Apply styles
-    class IS shellClass
-    class FC coreClass
-    class DB1,API1,FS1,DB2,API2,FS2 extClass
-    class IT,UT1,UT2,UT3,IT2 testClass
     class CR,CL,HT,MC infraClass
     class AL,AC appClass
     class DL,DM domainClass
     class RI,LI interfaceClass
     class FR,FL fakeClass
-    class subGraph0,subGraph1 mainGraphClass
+    class subGraph1 mainGraphClass
     class DomainPkg,AppPkg,InfraPkg packageClass
+    class DB2,API2,FS2 extClass
+    class UT2,UT3,IT2 testClass
     
-    %% Make inner containers styled
-    style Shell fill:#e0e0e054,stroke:#d4d4d4,stroke-dasharray:5 5
-    style Core fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px
-    style Dom fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px
-    style App fill:#a1c6ff54,stroke:#d4d4d4
-    style Infra fill:#e0e0e054,stroke:#d4d4d4
-    style RealImpl fill:#e0e0e054,stroke:#d4d4d4
-    style FakeImpl fill:#ffccd554,stroke:#d4d4d4,stroke-dasharray:5 5
-    style Handlers fill:#e0e0e054,stroke:#d4d4d4
-    style External1 fill:#ffffff54,stroke:#d4d4d4
-    style External2 fill:#ffffff54,stroke:#d4d4d4
-    style Interfaces fill:#fff0a054,stroke:#d4d4d4
-    style Contracts fill:#a1c6ff54,stroke:#d4d4d4
+    %% Make inner containers styled with increased padding
+    style Dom fill:#b8f2d754,stroke:#d4d4d4,stroke-width:2px,padding:15px
+    style App fill:#a1c6ff54,stroke:#d4d4d4,padding:15px
+    style Infra fill:#e0e0e054,stroke:#d4d4d4,padding:15px
+    style RealImpl fill:#e0e0e054,stroke:#d4d4d4,padding:15px
+    style FakeImpl fill:#ffccd554,stroke:#d4d4d4,stroke-dasharray:5 5,padding:15px
+    style Handlers fill:#e0e0e054,stroke:#d4d4d4,padding:15px
+    style External2 fill:#ffffff54,stroke:#d4d4d4,padding:15px
+    style Interfaces fill:#fff0a054,stroke:#d4d4d4,padding:15px
+    style Contracts fill:#a1c6ff54,stroke:#d4d4d4,padding:15px
 {{< /mermaid >}}
 
 This approach gives us the best of both worlds: pure domain logic that's trivially testable without mocks, and orchestration logic that can be tested without real external dependencies. This is a significant advantage over the pure FCIS pattern, while maintaining a simpler structure than traditional Hexagonal or Onion architectures.
